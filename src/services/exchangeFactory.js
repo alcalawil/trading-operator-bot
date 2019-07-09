@@ -1,24 +1,28 @@
 const ccxt = require('ccxt');
+const { getApiKey } = require('../utils/apiKeyManager');
 const exchanges = [];
 
-const exchangeExists = exchange => {
-  // TODO: Validate if exchange exists
-  return false;
+const exchangeInstanceExists = exchangeId => {
+  return exchanges.includes(exchangeId);
 };
 
 const getExchangeInstance = exchangeId => {
-  if (exchangeExists(exchangeId)) {
+  if (exchangeInstanceExists(exchangeId)) {
     return exchanges[exchangeId];
   }
 
-  const exchangeId = 'binance';
-  const exchangeClass = ccxt[exchangeId];
-  const exchange = new exchangeClass({
-    apiKey: 'YOUR_API_KEY',
-    secret: 'YOUR_SECRET',
+  const { apiKey, secret } = getApiKey(exchangeId);
+  const Exchange = ccxt[exchangeId];
+  const exchangeInstance = new Exchange({
+    apiKey,
+    secret,
     timeout: 30000,
     enableRateLimit: true
   });
+
+  exchanges[exchangeId] = exchangeInstance;
+
+  return exchangeInstance;
 };
 
-module.exports = { getExchangeInstance, exchangeExists };
+module.exports = { getExchangeInstance, exchangeInstanceExists };
