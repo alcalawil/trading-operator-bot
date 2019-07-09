@@ -5,6 +5,11 @@ class ExchangeService {
     const exchange = getExchangeInstance(exchangeId);
     return exchange.loadMarkets();
   }
+
+  async getBalance(exchangeId) {
+    const exchange = getExchangeInstance(exchangeId);
+    return exchange.fetchBalance();
+  }
 }
 
 module.exports = new ExchangeService();
