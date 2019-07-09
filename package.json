@@ -1,0 +1,23 @@
+{
+  "name": "bitmex-operator-bot",
+  "version": "1.0.0",
+  "description": "A Bitmex bot operator to create, delete or edit orders through an API",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js"
+  },
+  "keywords": [
+    "bitmex",
+    "bot",
+    "crypto",
+    "bitcoin"
+  ],
+  "author": "Wilfredo Alcala",
+  "license": "ISC",
+  "dependencies": {
+    "ccxt": "^1.18.851",
+    "cors": "^2.8.5",
+    "dotenv": "^8.0.0",
+    "express": "^4.17.1"
+  }
+}
