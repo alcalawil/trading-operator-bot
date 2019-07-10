@@ -1,17 +1,15 @@
 const express = require('express');
 const exchangeService = require('../services/exchangesService');
-const { validateOrderParams } = require('../utils/validators');
 
 const router = express.Router();
 
-router.post('/:exchange/create', async (req, res) => {
-  const params = validateOrderParams(req.body.params);
+router.get('/:exchange/get-balance', async (req, res) => {
   const exchangeId = req.params.exchange;
-  const markets = await exchangeService.loadMarkets(exchangeId, params);
+  const balance = await exchangeService.getBalance(exchangeId);
 
   res.status(200).json({
     message: exchangeId,
-    markets
+    balance
   });
 });
 
